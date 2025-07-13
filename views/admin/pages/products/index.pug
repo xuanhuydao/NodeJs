@@ -1,4 +1,37 @@
 extends ../../layouts/default.pug
 
 block main
-  h1 Trang danh sách sản phẩm
+  .container-fluid.mt-4
+    .d-flex.justify-content-between.align-items-center.mb-3
+      h2.mb-0 Quản lý sản phẩm
+      a.btn.btn-primary(href="/admin/products/create") + Thêm sản phẩm
+
+    .card.shadow-sm
+      .card-body
+        table.table.table-bordered.table-hover.table-striped
+          thead.thead-dark
+            tr
+              th STT
+              th Hình ảnh
+              th Tiêu đề
+              th Giá
+              th Trạng thái
+              th Hành động
+          tbody
+            //- Duyệt danh sách sản phẩm tại đây
+            each product, index in products
+              tr
+                td #{index + 1}
+                td
+                  img(src=product.thumbnail, alt=product.title, width="60", height="60", class="img-thumbnail")
+                td #{product.title}
+                td.text-danger.font-weight-bold #{product.price.toFixed(2)} $
+                td
+                  if product.stock > 0
+                    span.badge.badge-success Còn hàng
+                  else
+                    span.badge.badge-danger Hết hàng
+                td
+                  a.btn.btn-sm.btn-info(href=`/admin/products/${product._id}`) Xem
+                  a.btn.btn-sm.btn-warning.ml-1(href=`/admin/products/${product._id}/edit`) Sửa
+                  a.btn.btn-sm.btn-danger.ml-1(href=`/admin/products/${product._id}/delete`) Xoá
