@@ -30,12 +30,18 @@ module.exports.index = async (req, res) => {
         const index = fillterStatus.findIndex(item => item.status == "");
         fillterStatus[index].class = "active";
     }
+
+    // if(req.query.keyword) {
+    //     find.title = keyword;
+    // }
     
     const products = await Product.find(find);
 
     products.forEach(item => {
         item.priceNew = (item.price * (100 - item.discountPercentage) / 100).toFixed(0);
     });
+
+    
 
     res.render("admin/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",

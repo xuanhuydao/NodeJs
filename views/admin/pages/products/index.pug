@@ -9,11 +9,16 @@ block main
     .card.shadow-sm
       .card-header Bộ lọc và tìm kiếm 
       .card-body
+        .mb-3
+          form#formSearch.form-inline(method="GET", action="/admin/products")
+            input.form-control.mr-2(type="text", name="keyword", placeholder="Tìm kiếm sản phẩm...")
+            button.btn.btn-outline-primary(type="submit") Tìm kiếm
+
         each item in fillterStatus
           button(
-            class=`btn btn-sm ml 1 btn-outline-success ${item.class}`
-            button-status = item.status
-        ) #{item.name}
+            class=`btn btn-sm ml-1 btn-outline-success ${item.class}`
+            button-status=item.status
+          ) #{item.name}
         
     .card.shadow-sm
       .card-body
@@ -27,12 +32,11 @@ block main
               th Trạng thái
               th Hành động
           tbody
-            //- Duyệt danh sách sản phẩm tại đây
             each product, index in products
               tr
                 td #{index + 1}
                 td
-                  img(src=product.thumbnail, alt=product.title, width="60" height="60" class="img-thumbnail")
+                  img(src=product.thumbnail, alt=product.title, width="60", height="60", class="img-thumbnail")
                 td #{product.title}
                 td.text-danger.font-weight-bold #{product.price.toFixed(2)} $
                 td
