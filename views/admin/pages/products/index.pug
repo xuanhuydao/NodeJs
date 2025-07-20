@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
+include ../../mixins/pagination.pug
 
 block main
   .container-fluid.mt-4
@@ -35,11 +36,13 @@ block main
                 td #{product.title}
                 td.text-danger.font-weight-bold #{product.price.toFixed(2)} $
                 td
-                  if product.stock > 0
-                    span.badge.badge-success Còn hàng
+                  if product.status == "active"
+                    span.badge.badge-success Hoạt động
                   else
-                    span.badge.badge-danger Hết hàng
+                    span.badge.badge-danger Ngừng hoạt động
                 td
                   a.btn.btn-sm.btn-info(href=`/admin/products/${product._id}`) Xem
                   a.btn.btn-sm.btn-warning.ml-1(href=`/admin/products/${product._id}/edit`) Sửa
                   a.btn.btn-sm.btn-danger.ml-1(href=`/admin/products/${product._id}/delete`) Xoá
+  // PHÂN TRANG
+  +pagination(pagination)

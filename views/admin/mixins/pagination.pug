@@ -1,0 +1,15 @@
+mixin pagination(pagination)
+  nav.mt-4
+    ul.pagination.justify-content-center
+      if( pagination.currrentPage > 1)
+        li.page-item
+          button(class="page-link" button-pagination = pagination.currrentPage - 1) «
+
+      - for (var i = 1; i <= pagination.totalPage; i++)
+          li(class=`page-item ${pagination.currrentPage == i ? "active" : null }`)
+            button(class="page-link" button-pagination=i) #{i}
+
+
+      if( pagination.currrentPage < pagination.totalPage)
+        li.page-item
+          button(class="page-link" button-pagination = pagination.currrentPage + 1) »
