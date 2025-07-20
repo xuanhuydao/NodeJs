@@ -1,0 +1,5 @@
+mixin search(keyword)
+  .mb-3
+    form#formSearch.form-inline(method="GET", action="/admin/products")
+      input.form-control.mr-2(type="text", name="keyword", placeholder="Tìm kiếm sản phẩm...", value=keyword)
+      button.btn.btn-outline-primary(type="submit") Tìm kiếm
