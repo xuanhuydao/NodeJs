@@ -30,10 +30,14 @@ module.exports.index = async (req, res) => {
         const index = fillterStatus.findIndex(item => item.status == "");
         fillterStatus[index].class = "active";
     }
-
-    // if(req.query.keyword) {
-    //     find.title = keyword;
-    // }
+    let keyword = "";
+    if(req.query.keyword) {
+        keyword = req.query.keyword;
+        const regex = new RegExp(keyword, "i");
+        find.title = regex;
+    }else{
+         keyword = "";
+    }
     
     const products = await Product.find(find);
 
@@ -46,6 +50,7 @@ module.exports.index = async (req, res) => {
     res.render("admin/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",
         products: products,
-        fillterStatus: fillterStatus
+        fillterStatus: fillterStatus,
+        keyword: keyword
     });
 }
