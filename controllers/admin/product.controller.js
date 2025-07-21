@@ -38,7 +38,7 @@ module.exports.index = async (req, res) => {
     //#endregion
 
 
-    const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip);
+    const products = await Product.find(find).sort({ position: "desc" }).limit(objectPagination.limitItems).skip(objectPagination.skip);
     products.forEach(item => {
         item.priceNew = (item.price * (100 - item.discountPercentage) / 100).toFixed(0);
     });
@@ -76,6 +76,19 @@ module.exports.changeMultiStatus = async (req, res) => {
         case "inactive":
             await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
             break;
+        case "delete-all":
+            await Product.updateMany({ _id: { $in: ids } }, { deleted: true, deletedAt: new Date() });
+            break;
+        case "change-position":
+            for (const item of ids) {
+                let [id, position] = item.split("-");
+                position = parseInt(position);
+                console.log(id);
+                console.log(position);
+                await Product.updateMany({ _id: id }, { position: position });
+            }
+
+            break;
         default:
             break;
     }
@@ -86,7 +99,7 @@ module.exports.changeMultiStatus = async (req, res) => {
 // [DELETE] /admin/products/delete/:id
 module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;
-    
-    await Product.updateOne({_id: id}, {deleted: true, deletedAt: new Date()});
+
+    await Product.updateOne({ _id: id }, { deleted: true, deletedAt: new Date() });
     res.redirect("/admin/products");
 }

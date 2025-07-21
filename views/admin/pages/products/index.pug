@@ -34,6 +34,7 @@ block main
                 th Hình ảnh
                 th Tiêu đề
                 th Giá
+                th Vị trí
                 th Trạng thái
                 th Hành động
             tbody
@@ -46,6 +47,8 @@ block main
                     img(src=product.thumbnail, alt=product.title, width="60", height="60", class="img-thumbnail")
                   td #{product.title}
                   td.text-danger.font-weight-bold #{product.price.toFixed(2)} $
+                  td 
+                    input(type=number value=product.position style="width:60px" min="1" name="position")
                   td
                     if product.status == "active"
                       span(

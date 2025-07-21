@@ -96,13 +96,27 @@ if (formChangeMulti) {
     const checkboxMulti = document.querySelector("[checkbox-multi]");
     const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
 
+    const typeChange = e.target.elements.type.value;
+
+    if (typeChange == "delete-all") {
+      const isConfirm = confirm("bạn có chắc chắn muốn xóa những bản ghi được chọn");
+      if (!isConfirm) {
+        return;
+      }
+    }
+
     if (inputsChecked.length > 0) {
       let ids = [];
       const inputIds = formChangeMulti.querySelector("input[name='ids']");
 
       inputsChecked.forEach((input) => {
         id = input.value;
-        ids.push(id);
+        if(typeChange == "change-position"){
+          const position = input.closest("tr").querySelector("input[name='position']").value;         
+          ids.push(`${id}-${position}`);
+        }else{
+           ids.push(id);
+        }
       });
 
       inputIds.value = ids.join(", ");
@@ -121,13 +135,11 @@ if (btnsDelete) {
   const formDelete = document.querySelector("#form-delete");
   const path = formDelete.getAttribute("data-path");
 
-  console.log(formDelete);
-  console.log(path);
   btnsDelete.forEach((btn) => {
     btn.addEventListener("click", () => {
       let isConfirm = confirm("bạn có chắc muốn xóa bản ghi");
 
-      if(isConfirm){
+      if (isConfirm) {
         const id = btn.getAttribute("data-id");
         const action = `${path}/${id}?_method=DELETE`;
         console.log(action);
@@ -137,7 +149,7 @@ if (btnsDelete) {
       }
     });
   });
-  
+
 
 }
 
