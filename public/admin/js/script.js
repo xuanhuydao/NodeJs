@@ -114,3 +114,31 @@ if (formChangeMulti) {
   })
 }
 //#endregion
+
+//#region form-delete
+const btnsDelete = document.querySelectorAll("[button-delete]");
+if (btnsDelete) {
+  const formDelete = document.querySelector("#form-delete");
+  const path = formDelete.getAttribute("data-path");
+
+  console.log(formDelete);
+  console.log(path);
+  btnsDelete.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      let isConfirm = confirm("bạn có chắc muốn xóa bản ghi");
+
+      if(isConfirm){
+        const id = btn.getAttribute("data-id");
+        const action = `${path}/${id}?_method=DELETE`;
+        console.log(action);
+
+        formDelete.action = action;
+        formDelete.submit();
+      }
+    });
+  });
+  
+
+}
+
+//#endregion

@@ -64,7 +64,7 @@ module.exports.changeStatus = async (req, res) => {
 
 }
 
-// [PATHC] /admin/products/change-multi-status
+// [PATCH] /admin/products/change-multi-status
 module.exports.changeMultiStatus = async (req, res) => {
     const type = req.body.type;
     const ids = req.body.ids.split(", ");
@@ -81,4 +81,12 @@ module.exports.changeMultiStatus = async (req, res) => {
     }
     res.redirect("/admin/products");
 
+}
+
+// [DELETE] /admin/products/delete/:id
+module.exports.deleteItem = async (req, res) => {
+    const id = req.params.id;
+    
+    await Product.updateOne({_id: id}, {deleted: true, deletedAt: new Date()});
+    res.redirect("/admin/products");
 }

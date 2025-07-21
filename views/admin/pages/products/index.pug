@@ -62,9 +62,9 @@ block main
                         class="badge badge-danger"
                       ) Ngừng hoạt động
                   td
-                    a.btn.btn-sm.btn-info(href=`/admin/products/${product._id}`) Xem
-                    a.btn.btn-sm.btn-warning.ml-1(href=`/admin/products/${product._id}/edit`) Sửa
-                    a.btn.btn-sm.btn-danger.ml-1(href=`/admin/products/${product._id}/delete`) Xoá
+                    button.btn.btn-sm.btn-info(href=`/admin/products/${product._id}`) Xem
+                    button.btn.btn-sm.btn-warning.ml-1(href=`/admin/products/${product._id}/edit`) Sửa
+                    button.btn.btn-sm.btn-danger.ml-1(href=`/admin/products/${product._id}/delete` button-delete data-id=product.id) Xoá
   // PHÂN TRANG
   +pagination(pagination)
 
@@ -73,6 +73,13 @@ block main
     method="POST"
     id="form-change-status"
     data-path=`${prefixAdmin}/products/change-status`
+   )
+
+  form(
+    action=""
+    method="POST"
+    id="form-delete"
+    data-path=`${prefixAdmin}/products/delete`
    )
 
   script(src="/admin/js/product.js")
