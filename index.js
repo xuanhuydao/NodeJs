@@ -9,6 +9,8 @@ database.connect();
 
 const systemConfig = require("./config/system");
 
+const methodOverride = require('method-override');
+
 const app = express();
 const port = process.env.PORT;
 
@@ -19,6 +21,7 @@ app.set("view engine", "pug");
 //App local variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 app.use(express.static("public"));
+app.use(methodOverride('_method'));
 
 routeAdmin(app);
 route(app);

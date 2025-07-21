@@ -37,12 +37,31 @@ block main
                 td.text-danger.font-weight-bold #{product.price.toFixed(2)} $
                 td
                   if product.status == "active"
-                    span.badge.badge-success Hoạt động
+                    span(
+                      data-status=product.status
+                      data-id=product.id
+                      button-change-status
+                      class="badge badge-success"
+                    ) Hoạt động
                   else
-                    span.badge.badge-danger Ngừng hoạt động
+                    span(
+                      data-status=product.status
+                      data-id=product.id
+                      button-change-status
+                      class="badge badge-danger"
+                    ) Ngừng hoạt động
                 td
                   a.btn.btn-sm.btn-info(href=`/admin/products/${product._id}`) Xem
                   a.btn.btn-sm.btn-warning.ml-1(href=`/admin/products/${product._id}/edit`) Sửa
                   a.btn.btn-sm.btn-danger.ml-1(href=`/admin/products/${product._id}/delete`) Xoá
   // PHÂN TRANG
   +pagination(pagination)
+
+  form(
+    action=""
+    method="POST"
+    id="form-change-status"
+    data-path=`${prefixAdmin}/products/change-status`
+   )
+
+  script(src="/admin/js/product.js")

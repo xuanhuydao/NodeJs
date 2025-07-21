@@ -24,7 +24,7 @@ module.exports.index = async (req, res) => {
         find.title = objectSearch.regex;
     }
     //#endregion
-   
+
 
     //#region pagination
     const countProducts = await Product.countDocuments(find);
@@ -32,12 +32,12 @@ module.exports.index = async (req, res) => {
         currentPage: 1,
         limitItems: 4,
     },
-    req.query,
-    countProducts
+        req.query,
+        countProducts
     )
     //#endregion
-    
-    
+
+
     const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip);
     products.forEach(item => {
         item.priceNew = (item.price * (100 - item.discountPercentage) / 100).toFixed(0);
@@ -51,4 +51,15 @@ module.exports.index = async (req, res) => {
         keyword: objectSearch.keyword,
         pagination: objectPagination
     });
+}
+
+// [PATCH] /admin/products/change-status/:status/:id
+module.exports.changeStatus = async (req, res) => {
+    const status = req.params.status;
+    const id = req.params.id;
+    console.log(req.params);
+    await Product.updateOne({_id: id}, {status: status});
+
+    res.redirect("/admin/products");
+
 }
