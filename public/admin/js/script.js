@@ -111,11 +111,11 @@ if (formChangeMulti) {
 
       inputsChecked.forEach((input) => {
         id = input.value;
-        if(typeChange == "change-position"){
-          const position = input.closest("tr").querySelector("input[name='position']").value;         
+        if (typeChange == "change-position") {
+          const position = input.closest("tr").querySelector("input[name='position']").value;
           ids.push(`${id}-${position}`);
-        }else{
-           ids.push(id);
+        } else {
+          ids.push(id);
         }
       });
 
@@ -142,7 +142,6 @@ if (btnsDelete) {
       if (isConfirm) {
         const id = btn.getAttribute("data-id");
         const action = `${path}/${id}?_method=DELETE`;
-        console.log(action);
 
         formDelete.action = action;
         formDelete.submit();
@@ -153,4 +152,21 @@ if (btnsDelete) {
 
 }
 
+//#endregion
+
+//#region show alert
+const showAlert = document.querySelector("[show-alert]");
+const closeAlert = document.querySelector("[close-alert]");
+
+if (showAlert) {
+  const time = parseInt(showAlert.getAttribute("data-time"));
+
+  setTimeout(() => {
+    showAlert.classList.add("alert-hidden");
+  }, time)
+
+  closeAlert.addEventListener("click", () => {
+    showAlert.classList.add("alert-hidden");
+  });
+}
 //#endregion

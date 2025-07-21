@@ -3,8 +3,11 @@ include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+
 
 block main
+  +alert-success("3000")
   .container-fluid.mt-4
     .d-flex.justify-content-between.align-items-center.mb-3
       h2.mb-0 Quản lý sản phẩm
