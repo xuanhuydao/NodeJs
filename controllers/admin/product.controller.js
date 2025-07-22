@@ -118,13 +118,17 @@ module.exports.createPost = async (req, res) => {
     req.body.stock = Number(req.body.stock);
     console.log(req.file);
     const count = await Product.countDocuments({ deleted: false }) + 1;
-    req.body.thumbnail = req.file ? `/uploads/${req.file.filename}` : "default.png";
+    if (req.file) {
+        req.body.thumbnail = `/uploads/${req.file.filename}`;
+    }
+
     const product = new Product({
         ...req.body,
         position: count + 1,
-        
+
     });
     await product.save();
 
+    req.flash("success", "Thêm sản phẩm thành công");
     res.redirect("/admin/products");
 }
