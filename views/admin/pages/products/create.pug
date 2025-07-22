@@ -25,9 +25,10 @@ block main
         label(for="stock") Số lượng kho
         input#stock.form-control(type="number", name="stock", placeholder="Nhập số lượng tồn kho", min="0")
 
-      .form-group
+      .form-group(upload-img)
         label(for="thumbnail") Ảnh đại diện
-        input#thumbnail.form-control-file(type="file", name="thumbnail", accept="image/*")
+        input#thumbnail.form-control-file(type="file", name="thumbnail", accept="image/*" upload-img-input)
+        img(src="" upload-img-preview class="image-preview img-thumbnail mt-2")
 
       .form-group
         label(for="status") Trạng thái

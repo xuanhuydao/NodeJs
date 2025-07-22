@@ -173,3 +173,21 @@ if (showAlert) {
   });
 }
 //#endregion
+
+//#region upload image
+const uploadImg = document.querySelector("[upload-img]");
+if (uploadImg) {
+  const inputUploadImg = uploadImg.querySelector("[upload-img-input]");
+  const uploadImgPreview = uploadImg.querySelector("[upload-img-preview]");
+
+  if (inputUploadImg) {
+    inputUploadImg.addEventListener("change", (e) => {
+      const [file] = e.target.files;
+      if(file){
+        uploadImgPreview.src = URL.createObjectURL(file);
+      }
+
+    });
+  }
+}
+//#endregion

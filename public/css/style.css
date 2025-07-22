@@ -89,3 +89,19 @@ footer {
   color: #27ae60;
   margin-top: 5px;
 }
+
+/* Image Preview */
+.image-preview {
+  width: 150px;
+  height: auto;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.image-preview[src=""] {
+  display: none;
+}
+/* End Image Preview */
+
