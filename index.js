@@ -17,13 +17,13 @@ const systemConfig = require("./config/system");
 const app = express();
 const port = process.env.PORT;
 
-app.set("views","./views");
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 
 //App local variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
-app.use(express.static("public"));
+app.use(express.static(`${__dirname}/public`));
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: false}));
 
