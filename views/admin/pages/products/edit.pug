@@ -1,0 +1,43 @@
+extend ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-success("3000")
+  +alert-error("3000")
+  .container.mt-4
+    h2 Thêm mới sản phẩm
+
+    form(method="POST", action=`${prefixAdmin}/products/edit/${product.id}?_method=PATCH`, id="form-create-product" enctype="multipart/form-data")
+      .form-group
+        label(for="title") Tiêu đề sản phẩm
+        input#title.form-control(type="text", name="title", placeholder="Nhập tiêu đề sản phẩm", required, value=product.title)
+
+      .form-group
+        label(for="description") Mô tả sản phẩm
+        textarea#description.form-control(name="description", rows="4", placeholder="Nhập mô tả sản phẩm") #{product.description}
+
+      .form-group
+        label(for="price") Giá bán
+        input#price.form-control(type="number", name="price", placeholder="Nhập giá", required, min="0", value=product.price)
+
+      .form-group
+        label(for="discount") Giảm giá (%)
+        input#discount.form-control(type="number", name="discountPercentage", placeholder="Nhập phần trăm giảm giá", min="0", max="100" value=product.discountPercentage)
+
+      .form-group
+        label(for="stock") Số lượng kho
+        input#stock.form-control(type="number", name="stock", placeholder="Nhập số lượng tồn kho", min="0", value=product.stock)
+
+      .form-group(upload-img)
+        label(for="thumbnail") Ảnh đại diện
+        input#thumbnail.form-control-file(type="file", name="thumbnail", accept="image/*" upload-img-input)
+        img(src=product.thumbnail upload-img-preview class="image-preview img-thumbnail mt-2")
+
+      .form-group
+        label(for="status") Trạng thái
+        select#status.form-control(name="status")
+          option(value="active", selected=product.status === "active") Hoạt động
+          option(value="inactive", selected=product.status === "inactive") Ngừng hoạt động
+
+      button.btn.btn-primary(type="submit") Cập nhật sản phẩm
+      a.btn.btn-secondary.ml-2(href="/admin/products") Hủy

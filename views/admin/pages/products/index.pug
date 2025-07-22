@@ -68,9 +68,9 @@ block main
                         class="badge badge-danger"
                       ) Ngừng hoạt động
                   td
-                    button.btn.btn-sm.btn-info(href=`/admin/products/${product._id}`) Xem
-                    button.btn.btn-sm.btn-warning.ml-1(href=`/admin/products/${product._id}/edit`) Sửa
-                    button.btn.btn-sm.btn-danger.ml-1(href=`/admin/products/${product._id}/delete` button-delete data-id=product.id) Xoá
+                    a.btn.btn-sm.btn-info(href=`${prefixAdmin}/products/${product._id}`) Xem
+                    a.btn.btn-sm.btn-warning.ml-1(href=`${prefixAdmin}/products/edit/${product._id}`) Sửa
+                    btn.btn.btn-sm.btn-danger.ml-1(button-delete data-id=product.id) Xoá
   // PHÂN TRANG
   +pagination(pagination)
 
