@@ -1,0 +1,36 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.mt-5.mb-5
+    .row
+      .col-md-6.d-flex.align-items-center.justify-content-center
+        if product.thumbnail
+          img.img-fluid.rounded.shadow-lg(src=product.thumbnail, alt=product.title, style="max-width:350px;max-height:350px;object-fit:cover;")
+        else
+          img.img-fluid.rounded.shadow-lg(src="/uploads/default.png", alt="No image", style="max-width:350px;max-height:350px;object-fit:cover;")
+      .col-md-6
+        h2.mb-3.text-primary.font-weight-bold= product.title
+        p.text-muted.mb-2
+          | Giá gốc: 
+          span.text-decoration-line-through.text-danger.ml-2 #{product.price}₫
+        if product.discountPercentage > 0
+          p.text-success.mb-2
+            | Giảm giá: 
+            span.ml-2 #{product.discountPercentage}%
+        p.font-weight-bold.mb-3
+          | Giá bán: 
+          span.text-success.ml-2 #{(  product.price * (100 - product.discountPercentage) / 100).toFixed(0)}₫
+        p.mb-3
+          | Số lượng còn: 
+          span.badge.badge-info.ml-2 #{product.stock}
+        p.mb-3
+          | Trạng thái: 
+          if product.status == "active"
+            span.badge.badge-success.ml-2 Hoạt động
+          else
+            span.badge.badge-danger.ml-2 Ngừng hoạt động
+        h5.mt-4.mb-2.text-secondary Mô tả sản phẩm
+        p.lead= product.description
+        a.btn.btn-primary.mt-3(href=`/cart/add/${product._id}`) Thêm vào giỏ hàng
+
