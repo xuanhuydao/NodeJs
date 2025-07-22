@@ -24,22 +24,22 @@ if (buttonStatus.length > 0) {
 //#region form-search
 
 const formSearch = document.querySelector("#formSearch");
+if (formSearch) {
+  formSearch.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-formSearch.addEventListener("submit", function (e) {
-  e.preventDefault();
+    let keyword = e.target.elements.keyword.value;
+    let url = new URL(window.location.href);
 
-  let keyword = e.target.elements.keyword.value;
-  let url = new URL(window.location.href);
-
-  if (keyword) {
-    url.searchParams.set("keyword", keyword);
-  }
-  else {
-    url.searchParams.delete("keyword");
-  }
-  window.location.href = url.href;
-});
-
+    if (keyword) {
+      url.searchParams.set("keyword", keyword);
+    }
+    else {
+      url.searchParams.delete("keyword");
+    }
+    window.location.href = url.href;
+  });
+}
 //#endregion
 
 //#region pagination
@@ -133,21 +133,24 @@ if (formChangeMulti) {
 const btnsDelete = document.querySelectorAll("[button-delete]");
 if (btnsDelete) {
   const formDelete = document.querySelector("#form-delete");
-  const path = formDelete.getAttribute("data-path");
+  if (formDelete) {
+    const path = formDelete.getAttribute("data-path");
 
-  btnsDelete.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      let isConfirm = confirm("bạn có chắc muốn xóa bản ghi");
+    btnsDelete.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        let isConfirm = confirm("bạn có chắc muốn xóa bản ghi");
 
-      if (isConfirm) {
-        const id = btn.getAttribute("data-id");
-        const action = `${path}/${id}?_method=DELETE`;
+        if (isConfirm) {
+          const id = btn.getAttribute("data-id");
+          const action = `${path}/${id}?_method=DELETE`;
 
-        formDelete.action = action;
-        formDelete.submit();
-      }
+          formDelete.action = action;
+          formDelete.submit();
+        }
+      });
     });
-  });
+
+  }
 
 
 }

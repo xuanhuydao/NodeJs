@@ -105,3 +105,25 @@ module.exports.deleteItem = async (req, res) => {
     await Product.updateOne({ _id: id }, { deleted: true, deletedAt: new Date() });
     res.redirect("/admin/products");
 }
+
+// [GET] /admin/products/create
+module.exports.create = async (req, res) => {
+    res.render("admin/pages/products/create");
+}
+
+// [POST] /admin/products/create
+module.exports.createPost = async (req, res) => {
+    req.body.price = Number(req.body.price);
+    req.body.discountPercentage = Number(req.body.discountPercentage);
+    req.body.stock = Number(req.body.stock);
+
+    const count = await Product.countDocuments({ deleted: false }) + 1;
+    const product = new Product({
+        ...req.body,
+        position: count + 1,
+        
+    });
+    await product.save();
+
+    res.redirect("/admin/products");
+}
