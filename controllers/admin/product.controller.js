@@ -37,8 +37,16 @@ module.exports.index = async (req, res) => {
     )
     //#endregion
 
-
-    const products = await Product.find(find).sort({ position: "desc" }).limit(objectPagination.limitItems).skip(objectPagination.skip);
+    //#region sort
+    const sort = {};
+    if(req.query.sortKey && req.query.sortType) {
+        sort[req.query.sortKey] = req.query.sortType;
+    }
+    //#endregion
+    const products = await Product.find(find)
+    .sort(sort)
+    .limit(objectPagination.limitItems)
+    .skip(objectPagination.skip);
     products.forEach(item => {
         item.priceNew = (item.price * (100 - item.discountPercentage) / 100).toFixed(0);
     });
@@ -49,7 +57,9 @@ module.exports.index = async (req, res) => {
         products: products,
         filterStatus: filterStatus,
         keyword: objectSearch.keyword,
-        pagination: objectPagination
+        pagination: objectPagination,
+        sortKey: req.query.sortKey || "position",
+        sortType: req.query.sortType || "asc",
     });
 }
 

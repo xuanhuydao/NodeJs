@@ -191,3 +191,22 @@ if (uploadImg) {
   }
 }
 //#endregion
+
+//#region sort products
+const sortProducts = document.querySelector('.form-group.mb-0');
+if(sortProducts) {
+  const selectedType = sortProducts.querySelectorAll(".form-control");
+  selectedType.forEach((item) => {
+    item.addEventListener("change", () => {
+      let url = new URL(window.location.href);
+      [sortKey, sortType] = item.value.split("-");  //can use e.target.value.split("-") if you want to get the value directly from the event
+
+      url.searchParams.set("sortKey", sortKey);
+      url.searchParams.set("sortType", sortType);
+
+      window.location.href = url.href;
+      item.selected = true;
+    })
+  });
+}
+//#endregion
