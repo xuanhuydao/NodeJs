@@ -62,18 +62,19 @@ if (checkboxMulti) {
   const inputCheckAll = checkboxMulti.querySelector("input[name='checkall']");
   const inputIds = checkboxMulti.querySelectorAll("input[name='id']");
 
-  inputCheckAll.addEventListener("click", () => {
-    if (inputCheckAll.checked) {
-      inputIds.forEach((input) => {
-        input.checked = true;
-      });
-    } else {
-      inputIds.forEach((input) => {
-        input.checked = false;
-      });
-    }
-  });
-
+  if (inputCheckAll) {
+    inputCheckAll.addEventListener("click", () => {
+      if (inputCheckAll.checked) {
+        inputIds.forEach((input) => {
+          input.checked = true;
+        });
+      } else {
+        inputIds.forEach((input) => {
+          input.checked = false;
+        });
+      }
+    });
+  }
   inputIds.forEach((input) => {
     input.addEventListener("click", () => {
       const countChecked = checkboxMulti.querySelectorAll("input[name='id']:checked").length;

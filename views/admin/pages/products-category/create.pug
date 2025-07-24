@@ -1,0 +1,35 @@
+extend ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-success("3000")
+  +alert-error("3000")
+  .container.mt-4
+    h2 Thêm mới sản phẩm
+
+    form(method="POST", action="/admin/products-category/create", id="form-create-product-category" enctype="multipart/form-data")
+      .form-group
+        label(for="title") Tên danh mục
+        input#title.form-control(type="text", name="title", placeholder="Nhập tên danh mục", required)
+
+        .form-group
+        label(for="title") Danh mục cha
+        input#title.form-control(type="text", name="parent-category", placeholder="Nhập danh mục cha")
+
+      .form-group
+        label(for="description") Mô tả sản phẩm
+        textarea#description.form-control(name="description", rows="4", placeholder="Nhập mô tả sản phẩm")
+
+      .form-group(upload-img)
+        label(for="thumbnail") Ảnh đại diện
+        input#thumbnail.form-control-file(type="file", name="thumbnail", accept="image/*" upload-img-input)
+        img(src="" upload-img-preview class="image-preview img-thumbnail mt-2")
+
+      .form-group
+        label(for="status") Trạng thái
+        select#status.form-control(name="status")
+          option(value="active") Hoạt động
+          option(value="inactive") Ngừng hoạt động
+
+      button.btn.btn-primary(type="submit") Thêm danh mục
+      a.btn.btn-secondary.ml-2(href="/admin/products-category") Hủy
