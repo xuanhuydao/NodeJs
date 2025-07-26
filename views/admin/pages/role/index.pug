@@ -1,0 +1,40 @@
+extends ../../layouts/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+include ../../mixins/sort.pug
+
+
+block main
+  +alert-success("3000")
+  .container-fluid.mt-4
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h2.mb-0.text-primary Quản lý nhóm quyền
+      a.btn.btn-primary(href="/admin/roles/create")
+        i.fas.fa-plus-circle.mr-1
+        | Thêm nhóm quyền
+
+    .card.shadow-sm.mb-4
+      .card-header.d-flex.justify-content-between.align-items-center
+        span.font-weight-bold Danh sách nhóm quyền
+      .card-body.p-0
+        table.table.table-bordered.table-hover.table-striped.mb-0(checkbox-multi)
+          thead.thead-dark
+            tr.text-center
+              th.w-5 STT
+              th Tiêu đề
+              th.w-10 Mô tả
+              th.w-20 Hành động
+          tbody
+            each item, index in records
+              tr              
+                td.text-center #{index + 1}               
+                td.text-center=item.title
+                td.text-center=item.description || "Chưa có mô tả"
+                td.text-center
+                  a.btn.btn-sm.btn-info(href=`${prefixAdmin}/roles/${item._id}`) Xem
+                  a.btn.btn-sm.btn-warning.ml-1(href=`${prefixAdmin}/roles/edit/${item._id}`) Sửa
+                  button.btn.btn-sm.btn-danger.ml-1(button-delete data-id=item.id) Xoá  
+  //- script(src="/admin/js/product.js")
